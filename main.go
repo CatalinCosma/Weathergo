@@ -1,45 +1,24 @@
 package main
 
 import (
-	"log"
-	"net/http"
-	"os"
-
-	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/cors"
-	"github.com/joho/godotenv"
+	"github.com/CatalinCosma/weatherapp/app/handlers"
+	"github.com/CatalinCosma/weatherapp/db"
+	"github.com/gin-gonic/gin"
+	_ "github.com/lib/pq"
 )
 
 func main() {
 
-	godotenv.Load()
+	// cfg := config.LoadConfig()
 
-	port := os.Getenv("PORT")
-	if port == "" {
-		log.Fatal("PORT not found")
-	}
-
-	router := chi.NewRouter()
-
-	router.Use(cors.Handler(cors.Options{
-		AllowedOrigins:   []string{"https://*", "http://*"},
-		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
-		AllowedHeaders:   []string{"*"},
-		ExposedHeaders:   []string{"Link"},
-		AllowCredentials: false,
-		MaxAge:           300,
-	}))
-
-	router.Get("/", handlerReadiness)
-
-	srv := &http.Server{
-		Handler: router,
-		Addr:    ":" + port,
-	}
-
-	log.Printf("Server starting on port %v", port)
-	err := srv.ListenAndServe()
+	dbConn, err := db.Connect()
 	if err != nil {
-		log.Fatal("err")
+		panic(err)
 	}
+	defer dbConn.Close()
+
+	r := gin.Default()
+	handlers.SetupRoutes(r, dbConn)
+
+	r.Run(":8080")
 }

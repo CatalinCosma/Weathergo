@@ -11,7 +11,7 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
-const apiKey = "0bb8f5e7386e629856788a8328bc5c3d"
+const apiKey = "YOUR_OPENWEATHER_APIKEY"
 
 func SetupRoutes(r *gin.Engine, db *sqlx.DB) {
 	r.GET("/hello", func(c *gin.Context) {
@@ -39,7 +39,6 @@ func SetupRoutes(r *gin.Engine, db *sqlx.DB) {
 	})
 
 	r.POST("/store-weather", func(c *gin.Context) {
-		// Get temperature data from the request
 		var weatherData struct {
 			HoustonTemperature float64 `json:"houston_temperature"`
 			NYCTemperature     float64 `json:"nyc_temperature"`
@@ -49,7 +48,6 @@ func SetupRoutes(r *gin.Engine, db *sqlx.DB) {
 			return
 		}
 
-		// Insert the temperature data into the database
 		_, err := db.Exec("INSERT INTO weather_data (houston_temperature, nyc_temperature) VALUES ($1, $2)",
 			weatherData.HoustonTemperature, weatherData.NYCTemperature)
 		if err != nil {

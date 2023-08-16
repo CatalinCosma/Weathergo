@@ -9,8 +9,6 @@ import (
 
 func main() {
 
-	// cfg := config.LoadConfig()
-
 	dbConn, err := db.Connect()
 	if err != nil {
 		panic(err)

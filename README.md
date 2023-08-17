@@ -3,7 +3,8 @@ It's a small service that uses the OpenWeather api for offering temperature data
 
 ## Prerequisites
 * go 1.20.7
-* postgres 
+* postgres (create a new database with name weatherapp)
+* goose
 
 ## Instalation
 
@@ -27,5 +28,5 @@ To run the application, in the project root run
 This will start a web server on port 8080, with 4 routes defined:
 * `GET/http://localhost:8080/hello` - an example route 
 * `GET/http://localhost:8080/weather` - this will get the temperature for new york city and huston texas 
-* `POST/http://localhost:8080/store-data` - this will be used to store the temperature from previous route in de db
-* `GET/http://localhost:8080/stored-data` - this will be used to get the stored data from de db
+* `POST/http://localhost:8080/store-weather` - this will be used to store the temperature from previous route in de db
+* `GET/http://localhost:8080/stored-weather` - this will be used to get the stored data from de db

@@ -14,7 +14,9 @@ It's a small service that uses the OpenWeather api for offering temperature data
 
 First start the postgres server and run the DB migrations from db/migrations
 
+`protocol://username:password@host:port/database`
 `goose postgres postgres://postgres:111@localhost:5432/weatherapp up`
+
 
 ## How to use
 

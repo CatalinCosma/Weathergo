@@ -5,6 +5,8 @@ It's a small service that uses the OpenWeather api for offering temperature data
 * go 1.20.7
 * postgres (create a new database with name weatherapp)
 * goose
+* account on https://openweathermap.org/
+* add the generated APIKEY on app/handlers/handlers.go
 
 ## Instalation
 
@@ -23,7 +25,7 @@ First start the postgres server and run the DB migrations from db/migrations
 
 To run the application, in the project root run
 
-`go run build && ./weatherapp`
+`go run build && ./weatherapp` 
 
 This will start a web server on port 8080, with 4 routes defined:
 * `GET/http://localhost:8080/hello` - an example route 
